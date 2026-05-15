@@ -208,7 +208,9 @@ static struct sway_layer_surface *find_mapped_layer_by_client(
 			struct wlr_layer_surface_v1 *layer_surface = surface->layer_surface;
 			struct wl_resource *resource = layer_surface->resource;
 			if (wl_resource_get_client(resource) == client
-					&& layer_surface->surface->mapped) {
+					&& layer_surface->surface->mapped
+                    && layer_surface->current.keyboard_interactive
+                        == ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_EXCLUSIVE) {
 				return surface;
 			}
 		}
